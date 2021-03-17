@@ -3,12 +3,14 @@ package com.pei.httpmanager.requestbody;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public class MultipartRequestBody extends RequestBody {
     private static final String DEFAULT_CONTENT_TYPE = "multipart/form-data";
-    private List<Part> parts;
+
+    private final List<Part> parts = new ArrayList<>();
 
     public MultipartRequestBody() {
         super(DEFAULT_CONTENT_TYPE);
