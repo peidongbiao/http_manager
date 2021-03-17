@@ -1,0 +1,3 @@
+include ':httpmanager'
+include ':app'
+rootProject.name = "http_manager"
