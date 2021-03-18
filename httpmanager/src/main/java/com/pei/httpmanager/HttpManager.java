@@ -44,9 +44,14 @@ public class HttpManager {
             request.callbackExecutor = callbackExecutor;
         }
 
-        for (int i = 0; i < interceptors.size(); i++) {
-            request = interceptors.get(i).onRequest(request);
+        try {
+            for (int i = 0; i < interceptors.size(); i++) {
+                request = interceptors.get(i).onRequest(request);
+            }
+        } catch (Exception e) {
+            callOnErrorOnExecutor(callbackExecutor, callback, e);
         }
+
         final Executor callbackExecutor = request.callbackExecutor;
         httpClientAdapter.send(request, new ResponseCallback<Response>(null) {
             @Override
@@ -112,6 +117,7 @@ public class HttpManager {
         });
     }
 
+    @SuppressWarnings("rawtypes")
     private void callOnErrorOnExecutor(Executor executor, final ResponseCallback callback, final Exception exception) {
         executor.execute(new Runnable() {
             @Override
@@ -173,10 +179,10 @@ public class HttpManager {
     public interface Interceptor {
 
         @MainThread
-        Request onRequest(Request request);
+        Request onRequest(Request request) throws Exception;
 
         @WorkerThread
-        Response onResponse(Response response);
+        Response onResponse(Response response) throws Exception;
     }
 
     public interface Converter {
