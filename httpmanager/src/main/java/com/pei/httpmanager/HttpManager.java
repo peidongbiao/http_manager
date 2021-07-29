@@ -7,6 +7,7 @@ import androidx.annotation.MainThread;
 import androidx.annotation.WorkerThread;
 
 import com.pei.httpmanager.exception.ConvertException;
+import com.pei.httpmanager.exception.HttpRequestException;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -122,7 +123,7 @@ public class HttpManager {
         executor.execute(new Runnable() {
             @Override
             public void run() {
-                callback.onError(exception);
+                callback.onError(new HttpRequestException(exception));
             }
         });
     }

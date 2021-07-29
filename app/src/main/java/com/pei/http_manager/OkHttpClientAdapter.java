@@ -50,6 +50,11 @@ public class OkHttpClientAdapter implements HttpClientAdapter {
         });
     }
 
+    @Override
+    public Response send(Request request) {
+        return null;
+    }
+
     private okhttp3.Request makeRequest(Request request) {
         okhttp3.Request.Builder builder = new okhttp3.Request.Builder();
         builder.url(request.getUrl());

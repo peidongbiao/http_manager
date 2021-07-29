@@ -1,6 +1,6 @@
 package com.pei.httpmanager.exception;
 
-public class ConvertException extends Exception {
+public class ConvertException extends HttpRequestException {
 
     public ConvertException() {
     }
